@@ -1,10 +1,14 @@
 import { Router } from "express";
-import { handleSignupRequset } from "../routes/usersRoute";
+import {
+  handleProfileRequest,
+  handleSignupRequset,
+} from "../routes/usersRoute";
+import verifyUser from "../middlewares/verifyUser";
 
 const router: Router = Router();
 
 router.post("/signup", handleSignupRequset);
 
-router.get("/profile", () => {});
+router.get("/profile", verifyUser, handleProfileRequest);
 
 export default router;

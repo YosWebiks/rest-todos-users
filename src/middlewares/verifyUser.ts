@@ -8,10 +8,12 @@ const verifyUser = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const token: string | undefined = req.headers.authorization;
+    // @ts-ignore
+    const token: string = req.headers?.["authorization"] || "";
+    console.log({token})
     const decoded: TokenPayloadDTO = jwt.verify(
-      token || "",
-      process.env.JWT_SECERT!
+      token,
+      process.env.JWT_SECRET!
     ) as TokenPayloadDTO;
     //@ts-ignore
     req.user = decoded
